@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈姝 — 靈魂全景分析 v2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --surface2: #1c1c2e;
+  --amber: #f0a050;
+  --amber-glow: rgba(240,160,80,0.15);
+  --teal: #4ecdc4;
+  --teal-glow: rgba(78,205,196,0.12);
+  --coral: #ff6b6b;
+  --lavender: #b8a9e8;
+  --gold: #ffd700;
+  --text: #e8e6e3;
+  --text-dim: #8a8a9a;
+  --text-bright: #ffffff;
+  --border: rgba(255,255,255,0.06);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--amber); color: var(--bg); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top:0; left:0; right:0; z-index: 100;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex; align-items: center; height: 56px;
+  gap: 0.5rem;
+  overflow-x: auto;
+  transition: transform 0.3s;
+}
+.nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all 0.25s;
+}
+.nav a:hover, .nav a.active {
+  color: var(--amber);
+  background: var(--amber-glow);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(240,160,80,0.06) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 30% 60%, rgba(78,205,196,0.04) 0%, transparent 60%);
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, var(--amber), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  margin-bottom: 1rem;
+}
+.hero .subtitle {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+.hero .stats {
+  display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center;
+  margin-top: 1.5rem;
+}
+.hero .stat-item {
+  text-align: center;
+}
+.hero .stat-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2.5rem; font-weight: 700;
+  color: var(--amber);
+}
+.hero .stat-label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* ── SECTIONS ── */
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.section-title .icon { font-size: 1.5rem; }
+.section-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+/* ── SOUL COLOR ── */
+.soul-color-container {
+  display: flex; gap: 3rem; align-items: stretch;
+  flex-wrap: wrap;
+}
+.color-orb {
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    #f5c77e 0%, #d4915c 25%, #3a8a82 55%, #1a5c5a 80%, #0d2f35 100%);
+  box-shadow: 0 0 80px rgba(240,160,80,0.2), 0 0 120px rgba(78,205,196,0.1);
+  flex-shrink: 0;
+  animation: orbPulse 6s ease-in-out infinite;
+  position: relative;
+}
+.color-orb::after {
+  content: '';
+  position: absolute; inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,160,80,0.08) 0%, transparent 70%);
+  animation: orbPulse 6s ease-in-out infinite reverse;
+}
+@keyframes orbPulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.color-text {
+  flex: 1; min-width: 300px;
+}
+.color-text h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--amber);
+}
+.color-desc { margin-bottom: 1.5rem; }
+.color-pair {
+  display: flex; gap: 1.5rem; margin-top: 1.5rem;
+}
+.color-chip {
+  flex: 1;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.color-chip.amber-chip {
+  background: linear-gradient(135deg, rgba(240,160,80,0.12), rgba(240,160,80,0.03));
+  border-color: rgba(240,160,80,0.2);
+}
+.color-chip.teal-chip {
+  background: linear-gradient(135deg, rgba(78,205,196,0.12), rgba(78,205,196,0.03));
+  border-color: rgba(78,205,196,0.2);
+}
+.color-chip h4 {
+  font-size: 0.95rem; margin-bottom: 0.4rem;
+}
+.color-chip p {
+  font-size: 0.82rem; color: var(--text-dim);
+}
+
+/* ── CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  transition: all 0.3s;
+  cursor: default;
+}
+.card:hover {
+  border-color: rgba(240,160,80,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.card .tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+.tag-amber { background: var(--amber-glow); color: var(--amber); }
+.tag-teal { background: var(--teal-glow); color: var(--teal); }
+.tag-coral { background: rgba(255,107,107,0.12); color: var(--coral); }
+.tag-lavender { background: rgba(184,169,232,0.12); color: var(--lavender); }
+.tag-gold { background: rgba(255,215,0,0.12); color: var(--gold); }
+.card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem; font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+.card p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.card .evidence {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── SPECTRUM ── */
+.spectrum-list { display: flex; flex-direction: column; gap: 2rem; }
+.spectrum-item label {
+  display: flex; justify-content: space-between;
+  font-size: 0.85rem; margin-bottom: 0.5rem;
+  color: var(--text-dim);
+}
+.spectrum-bar {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  position: relative;
+}
+.spectrum-dot {
+  width: 16px; height: 16px;
+  background: var(--amber);
+  border-radius: 50%;
+  position: absolute; top: -5px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px rgba(240,160,80,0.4);
+  transition: left 0.8s ease;
+}
+.spectrum-bar .fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+  opacity: 0.3;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--amber), var(--teal));
+  opacity: 0.3;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1rem;
+}
+.tl-item::before {
+  content: '';
+  position: absolute; left: -2.5rem; top: 8px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 10px rgba(240,160,80,0.3);
+}
+.tl-year {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 0.3rem;
+}
+.tl-text {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+/* ── BAR CHART ── */
+.bar-chart {
+  display: flex; align-items: flex-end; gap: 4px;
+  height: 180px; padding-top: 1rem;
+  margin: 2rem 0;
+}
+.bar-col {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  height: 100%;
+}
+.bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--amber), rgba(240,160,80,0.3));
+  border-radius: 3px 3px 0 0;
+  min-height: 2px;
+  transition: height 0.6s ease;
+  position: relative;
+}
+.bar:hover { opacity: 0.8; }
+.bar-label {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  margin-top: 0.3rem;
+  transform: rotate(-45deg);
+  white-space: nowrap;
+}
+.bar-tooltip {
+  display: none;
+  position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface2);
+  color: var(--text);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+.bar:hover .bar-tooltip { display: block; }
+
+/* ── KEYWORD CLOUD ── */
+.keyword-cloud {
+  display: flex; flex-wrap: wrap;
+  gap: 0.8rem; justify-content: center;
+  padding: 2rem 0;
+}
+.kw {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  cursor: default;
+  transition: all 0.25s;
+  position: relative;
+}
+.kw:hover {
+  border-color: var(--amber);
+  background: var(--amber-glow);
+  transform: scale(1.05);
+}
+.kw .kw-tip {
+  display: none;
+  position: absolute; bottom: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  color: var(--text);
+  width: 260px;
+  line-height: 1.5;
+  z-index: 20;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.kw:hover .kw-tip { display: block; }
+
+/* ── EXPANDABLE CARDS ── */
+.expand-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.expand-card:hover { border-color: rgba(240,160,80,0.15); }
+.expand-header {
+  padding: 1.5rem 1.8rem;
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.expand-header h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem; font-weight: 600;
+}
+.expand-arrow {
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  transition: transform 0.3s;
+}
+.expand-card.open .expand-arrow { transform: rotate(180deg); }
+.expand-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.expand-card.open .expand-body { max-height: 2000px; }
+.expand-content {
+  padding: 0 1.8rem 1.5rem;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+.expand-content .quote-box {
+  background: var(--surface2);
+  border-left: 3px solid var(--amber);
+  padding: 0.8rem 1.2rem;
+  margin: 1rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+/* ── BLIND SPOTS ── */
+.blind-spot-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,107,107,0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.blind-spot-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--coral), var(--lavender));
+}
+.blind-spot-card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem; font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--coral);
+}
+.blind-spot-card p {
+  font-size: 0.88rem; color: var(--text-dim); line-height: 1.8;
+}
+.blind-spot-card .bs-evidence {
+  margin-top: 1rem; padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem; color: var(--text-dim);
+}
+
+/* ── STRENGTHS / LIMITS ── */
+.sl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.sl-col h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid;
+}
+.sl-col.strength h3 { border-color: var(--teal); color: var(--teal); }
+.sl-col.limit h3 { border-color: var(--coral); color: var(--coral); }
+.sl-item {
+  margin-bottom: 1.5rem;
+}
+.sl-item h4 {
+  font-size: 0.95rem; font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+.sl-item p {
+  font-size: 0.82rem; color: var(--text-dim);
+}
+
+/* ── CATCHPHRASE ── */
+.catchphrase-grid {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  justify-content: center;
+}
+.catchphrase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.4rem;
+  border-radius: 30px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: all 0.25s;
+}
+.catchphrase:hover {
+  border-color: var(--amber);
+  background: var(--amber-glow);
+}
+
+/* ── FADE IN ── */
+.fade-in {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .soul-color-container { flex-direction: column; align-items: center; }
+  .color-pair { flex-direction: column; }
+  .sl-grid { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  .nav { gap: 0; }
+  .nav a { font-size: 0.72rem; padding: 0.3rem 0.5rem; }
+  section { padding: 3rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#soul-color">靈魂色彩</a>
+  <a href="#profile">人格側寫</a>
+  <a href="#base-logic">底層邏輯</a>
+  <a href="#soul-map">靈魂地圖</a>
+  <a href="#panorama">思維全景</a>
+  <a href="#methodology">方法論</a>
+  <a href="#strengths">優勢與限制</a>
+  <a href="#blindspots">盲點分析</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>靈姝</h1>
+  <p class="subtitle">從 2,582 篇 Facebook 貼文、233 萬字、橫跨 17 年的數位足跡中<br>萃取一個靈魂的全景</p>
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-num">2,582</div>
+      <div class="stat-label">篇 貼 文</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2.33M</div>
+      <div class="stat-label">字 元</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">17</div>
+      <div class="stat-label">年 跨 度</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1,231</div>
+      <div class="stat-label">篇 長 文</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 1. SOUL COLOR ═══════ -->
+<section id="soul-color" class="fade-in">
+  <div class="section-title"><span class="icon">◐</span> 靈魂色彩</div>
+  <p class="section-desc">如果妳的靈魂有顏色，它不會是單色。它是一顆在琥珀與深海之間呼吸的星體。</p>
+
+  <div class="soul-color-container">
+    <div class="color-orb"></div>
+    <div class="color-text">
+      <h3>琥珀暖金 × 深海碧青</h3>
+      <p class="color-desc">妳的文字有兩種溫度。一種是琥珀色的——那種被陽光照透的蜂蜜，流動在妳寫兒子的成長、寫書展的熱鬧、寫替作者拼命行銷時眼底發亮的瞬間。另一種是深海碧青——那種只有潛到足夠深才會遇見的靜謐，出現在妳寫存在的困惑、寫選擇的重量、寫凌晨三點無法入睡時腦中翻轉的那些問號。</p>
+      <p class="color-desc">這兩種顏色不是此消彼長。17年的書寫軌跡顯示，妳的琥珀越來越沉穩（早期的熱情帶著急切，近年的溫暖帶著篤定），而碧青越來越透亮（早期的深沉帶著迷惘，近年的內省帶著清醒）。</p>
+      <div class="color-pair">
+        <div class="color-chip amber-chip">
+          <h4 style="color:var(--amber)">琥珀面</h4>
+          <p>共感力、行動力、照亮他人的本能。佔據妳在書寫「人」的時候——作者、孩子、流浪貓、街頭的陌生人。</p>
+        </div>
+        <div class="color-chip teal-chip">
+          <h4 style="color:var(--teal)">碧青面</h4>
+          <p>解構力、提問力、直視深淵的勇氣。出現在妳書寫「意義」的時候——為什麼選擇、什麼值得、人生到底是什麼。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 2. PERSONALITY PROFILE ═══════ -->
+<section id="profile" class="fade-in">
+  <div class="section-title"><span class="icon">◈</span> 人格側寫</div>
+  <p class="section-desc">從 2,582 篇貼文中浮現的人格輪廓——不是標籤，是紋理。</p>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dim);">性格標籤</h3>
+  <div class="card-grid" style="margin-bottom:3rem;">
+    <div class="card">
+      <span class="tag tag-amber">核心驅力</span>
+      <h3>靈魂翻譯官</h3>
+      <p>妳做的每一件事，本質上都是翻譯——把作者的思想翻譯成讀者的渴望，把社會議題翻譯成大眾能共感的故事，把貓的需要翻譯成人的責任。這不是技能，是存在方式。</p>
+      <div class="evidence">「行銷不只是行銷書，而是行銷作者的靈魂和意志」——2020年書展回顧</div>
+    </div>
+    <div class="card">
+      <span class="tag tag-teal">認知風格</span>
+      <h3>結構性浪漫主義者</h3>
+      <p>妳同時擁有企管人的框架思維和詩人的意象直覺。寫行銷提案時會突然冒出詩句，寫詩的時候又忍不住分析結構。87篇 #偶一為詩 和 894 次「行銷」並存，不是分裂，是妳的基本配置。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-coral">社交模式</span>
+      <h3>暖場型獨行者</h3>
+      <p>妳能在書展裡說書、在直播中妙語如珠、在開發信裡打動陌生人，但妳充電的方式是獨處和閱讀。社交展演是技能，獨處思考才是氧氣。</p>
+      <div class="evidence">「喜歡說話，但最常得到的讚美是擅於傾聽」——About Me</div>
+    </div>
+    <div class="card">
+      <span class="tag tag-lavender">情感運作</span>
+      <h3>感性的理性主義者</h3>
+      <p>妳的眼淚很容易掉（脆弱相關847次），但妳處理情緒的方式是把它們變成文字——寫下來就是梳理，梳理了就能前進。妳不是壓抑，是把感性翻譯成可以傳遞的理性。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-gold">價值錨點</span>
+      <h3>意義的偏執狂</h3>
+      <p>「人生」出現823次，「選擇」826次，「意義」和「價值」遍佈整個文本。妳不是在活一天過一天，妳是在每一天裡找「為什麼要這樣活」的答案。這讓妳深刻，也讓妳累。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-amber">行動模式</span>
+      <h3>慢熟型全力以赴者</h3>
+      <p>妳不輕易開始，但一旦投入就是把整個人丟進去。從出版到公益到養貓事業，每一次都是全身心的浸泡，不是淺嚐。「工作即生活」不只是標籤，是妳的真實狀態。</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dim);">做事風格光譜</h3>
+  <div class="spectrum-list">
+    <div class="spectrum-item">
+      <label><span>獨處充電 ◂</span><span>▸ 社交展演</span></label>
+      <div class="spectrum-bar">
+        <div class="fill" style="width:100%"></div>
+        <div class="spectrum-dot" style="left:30%"></div>
+      </div>
+    </div>
+    <div class="spectrum-item">
+      <label><span>感性直覺 ◂</span><span>▸ 理性分析</span></label>
+      <div class="spectrum-bar">
+        <div class="fill" style="width:100%"></div>
+        <div class="spectrum-dot" style="left:55%"></div>
+      </div>
+    </div>
+    <div class="spectrum-item">
+      <label><span>完美主義 ◂</span><span>▸ 實用主義</span></label>
+      <div class="spectrum-bar">
+        <div class="fill" style="width:100%"></div>
+        <div class="spectrum-dot" style="left:35%"></div>
+      </div>
+    </div>
+    <div class="spectrum-item">
+      <label><span>穩定安全 ◂</span><span>▸ 冒險探索</span></label>
+      <div class="spectrum-bar">
+        <div class="fill" style="width:100%"></div>
+        <div class="spectrum-dot" style="left:60%"></div>
+      </div>
+    </div>
+    <div class="spectrum-item">
+      <label><span>自我關注 ◂</span><span>▸ 他人關懷</span></label>
+      <div class="spectrum-bar">
+        <div class="fill" style="width:100%"></div>
+        <div class="spectrum-dot" style="left:72%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;">
+    <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dim);">別人眼中 vs 真實的靈姝</h3>
+    <div class="card-grid">
+      <div class="card" style="border-color:rgba(78,205,196,0.15);">
+        <span class="tag tag-teal">別人可能看到的</span>
+        <h3>高效能的行銷才女</h3>
+        <p>總是有新專案在手，文字犀利準確，人脈廣又會經營，說話幽默又有深度。看起來什麼都能搞定。</p>
+      </div>
+      <div class="card" style="border-color:rgba(240,160,80,0.15);">
+        <span class="tag tag-amber">妳自己知道的</span>
+        <h3>用盡全力在假裝游刃有餘</h3>
+        <p>接每個案子都在內心掙扎，每篇長文都改了無數遍，看起來的從容是反覆焦慮後的結果。「還蠻需要自我感覺良好」不是自嘲，是生存策略。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 3. BASE LOGIC ═══════ -->
+<section id="base-logic" class="fade-in">
+  <div class="section-title"><span class="icon">⬡</span> 性格底層邏輯</div>
+  <p class="section-desc">在所有行為模式的底部，有幾條看不見的鋼纜在支撐著妳。</p>
+
+  <div class="card-grid">
+    <div class="card" style="border-left: 3px solid var(--amber);">
+      <span class="tag tag-amber">第一原理</span>
+      <h3>先看見「人」</h3>
+      <p>這是妳 About Me 裡寫的，也是妳所有行為的起點。妳看書先看作者，做行銷先理解靈魂，養貓先看見每隻貓的個性。在妳的世界裡，抽象概念必須先還原成一個具體的人，才值得被認真對待。</p>
+      <div class="evidence">「找到答案之前，先看見人」——關於我。行銷 894 次，但「作者」出現 1,154 次，人永遠在方法之前。</div>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--teal);">
+      <span class="tag tag-teal">驅動迴路</span>
+      <h3>意義感才是燃料</h3>
+      <p>妳換過很多工作和身份——嚮網科技、親子天下、獻策顧問、散冊出版——但每一次轉換的共同點不是錢或頭銜，而是「這件事有沒有意義」。妳可以為有意義的事燃燒自己，但一旦意義感消失，再好的待遇都留不住妳。同時妳還長年投入瑩光教育協會、拼圖喵、養貓人家的行銷與倡議，工作邊界從來不是由薪水決定的。</p>
+      <div class="evidence">主題演變：「工作/行銷」密度從 2014-2016 的 7.8/萬字跳至 2023-2026 的 26.4/萬字，不是變得更拼，是找到了能讓工作等於使命的位置。</div>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--lavender);">
+      <span class="tag tag-lavender">認知習慣</span>
+      <h3>用書寫來思考</h3>
+      <p>妳不是想好了才寫，是寫了才知道自己在想什麼。平均文長從 2010 年的 178 字成長到 2024 年的 1,370 字，長文比例從 0% 到 65%。這不是話變多了，是妳越來越需要透過文字來處理越來越複雜的內在。</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--coral);">
+      <span class="tag tag-coral">決策模式</span>
+      <h3>直覺先行，邏輯收尾</h3>
+      <p>妳常說「內心就有一股自然升起的衝動和感動」——先被觸動，然後才開始分析為什麼被觸動。這讓妳的選擇既有溫度又有結構。光譜上感性直覺 55%，不是正中間，是微微偏理性——因為妳已經學會用理性包裝直覺的結論。</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--gold);">
+      <span class="tag tag-gold">關係原則</span>
+      <h3>忠誠於人，不忠誠於機構</h3>
+      <p>妳離開親子天下但寫了 8,681 字紀念琦瑜的書，離開嚮網但多年後仍記得畢業生們。妳的職涯地圖不是以公司畫的，是以人畫的。妳記得每一個對妳好的人的名字和他們說過的話。</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--amber);">
+      <span class="tag tag-amber">生存信念</span>
+      <h3>不完美的行動 > 完美的靜止</h3>
+      <p>「熱血/行動」情緒標記 2,164 次，遠超「脆弱/感傷」的 847 次。妳允許自己脆弱，但不允許自己停下來。妳的應對方式永遠是「好，那我們來做點什麼」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 4. SOUL MAP ═══════ -->
+<section id="soul-map" class="fade-in">
+  <div class="section-title"><span class="icon">◎</span> 靈魂地圖</div>
+  <p class="section-desc">妳的靈魂不住在一個地方，它在幾個端點之間來回遷徙。</p>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dim);">靈魂原型</h3>
+  <div class="card-grid" style="margin-bottom:3rem;">
+    <div class="card">
+      <span class="tag tag-amber">主原型</span>
+      <h3>擺渡人 The Ferryman</h3>
+      <p>妳不建造船，妳是那個划船的人。把作者的想法送到讀者手中，把被遺忘的議題送到社會的視線裡，把流浪貓送到願意愛牠的人面前。妳存在的位置永遠在「這一岸」和「那一岸」之間。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-teal">暗原型</span>
+      <h3>煉金術士 The Alchemist</h3>
+      <p>妳有一種把混亂變成秩序的能力——把散亂的想法變成一篇結構清晰的長文，把模糊的社會議題變成一句打動人心的文案，把困頓的情緒變成可以被理解的故事。146 篇 #今日姝摘 就是日常煉金的痕跡。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-lavender">影子原型</span>
+      <h3>永恆的局外人 The Outsider</h3>
+      <p>妳總是在每個群體裡，卻不完全屬於任何一個。在出版界是行銷人，在行銷界是文字人，在文字界是企管人。「常常被誤會為中文系畢業的企管人」——這個不被歸類的位置，既是孤獨的來源，也是妳能跨界翻譯的原因。</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dim);">靈魂張力場</h3>
+  <div class="card-grid" style="margin-bottom:3rem;">
+    <div class="card">
+      <h3>控制 ⟷ 放手</h3>
+      <p>174 篇觸及控制與放手的拉扯。妳對工作品質的控制近乎偏執（「對錯字零容忍」），但人生觀卻不斷練習放手。這個張力從未消解，只是妳學會了選擇：在能控制的事情上極致，在不能控制的事情上鬆開。</p>
+    </div>
+    <div class="card">
+      <h3>服務他人 ⟷ 忠於自己</h3>
+      <p>「自我/靈魂」主題密度從早期 23.3/萬字穩步上升到 40.1/萬字。妳花了十七年，慢慢從「為別人做事」移向「為自己在意的事全力以赴」。#偏心自己 不只是一本書的書名，是妳近年的人生命題。</p>
+    </div>
+    <div class="card">
+      <h3>深度 ⟷ 廣度</h3>
+      <p>妳同時經營出版、教育、公益、動物福利、文字創作。每一個都不是淺嚐，但每一個都不是妳唯一的身份。妳像一棵根系極深但枝幹極廣的樹，養分從各處汲取，但都流向同一個核心。</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dim);">存在性提問</h3>
+  <div class="card-grid">
+    <div class="card" style="border-top: 2px solid var(--amber);">
+      <h3>「我夠格嗎？」</h3>
+      <p>冒牌者症候群的暗流。妳寫別人時筆力萬鈞，寫到自己就「沒有什麼好說」。215 篇觸及完美主義與自我批判——妳對自己的標準，永遠比對別人的高一截。</p>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--teal);">
+      <h3>「選擇了這個，就失去了那個？」</h3>
+      <p>826 次「選擇」、2026 年的「選擇悖論」長文。妳不怕做決定，妳怕的是每個決定背後那些被放棄的可能性。沉沒成本不只是妳分析政治的工具，也是妳面對自己人生時的隱憂。</p>
+    </div>
+    <div class="card" style="border-top: 2px solid var(--lavender);">
+      <h3>「我的價值不只是有用吧？」</h3>
+      <p>妳所有的自我描述都和「做了什麼」有關，極少和「是什麼」有關。行銷、企劃、寫作、策展——都是動詞。妳的存在感建立在產出之上，當產出停止時，妳是否還認得自己？</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 5. THINKING PANORAMA ═══════ -->
+<section id="panorama" class="fade-in">
+  <div class="section-title"><span class="icon">◉</span> 思維全景</div>
+  <p class="section-desc">17 年的文字累積，形成一片可以辨識的思維地形。</p>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1rem; font-size:1.1rem; color:var(--text-dim);">關鍵字雲（hover 看脈絡）</h3>
+  <div class="keyword-cloud">
+    <div class="kw" style="font-size:1.4rem; color:var(--amber);">孩子
+      <div class="kw-tip">1,545 次。從教養書行銷到自己兒子的成長記錄，「孩子」是妳最持久的關注。近年密度下降（兒子長大了），但仍是核心。</div>
+    </div>
+    <div class="kw" style="font-size:1.5rem; color:var(--teal);">故事
+      <div class="kw-tip">1,343 次。妳相信萬事萬物都有故事，而妳的使命是把它們說出來。「故事先行」是妳的敘事DNA。</div>
+    </div>
+    <div class="kw" style="font-size:1.3rem;">老師
+      <div class="kw-tip">1,296 次。不只是教育書的作者們，也是妳對所有啟發過妳的人的稱呼方式。嚴長壽、偉瑩老師、琦瑜——在妳心中，值得敬重的人都是「老師」。</div>
+    </div>
+    <div class="kw" style="font-size:1.2rem;">朋友
+      <div class="kw-tip">1,273 次。妳的人際關係不是人脈經營，是真實的情感連結。每一次提到朋友都伴隨著具體的名字和故事。</div>
+    </div>
+    <div class="kw" style="font-size:1.3rem; color:var(--amber);">謝謝
+      <div class="kw-tip">1,169 次。感恩是妳的預設情緒。不是客套，是真的覺得自己擁有的太多了。</div>
+    </div>
+    <div class="kw" style="font-size:1.4rem;">作者
+      <div class="kw-tip">1,154 次。妳把作者看成獨立的生命體，不是商品。「行銷作者的靈魂和意志」——這句話是妳整個出版生涯的濃縮。</div>
+    </div>
+    <div class="kw" style="font-size:1.15rem; color:var(--teal);">世界
+      <div class="kw-tip">1,098 次。從台灣到香港到全球議題，妳的視野不停在擴大。但「改變世界」對妳來說從來不是口號，是「我能在我的位置上做什麼」。</div>
+    </div>
+    <div class="kw" style="font-size:1.1rem;">媽媽
+      <div class="kw-tip">981 次。不只是母職，也是妳理解世界的一個座標。妳從媽媽的視角看教育，從教育的視角看社會。</div>
+    </div>
+    <div class="kw" style="font-size:1.2rem; color:var(--coral);">愛
+      <div class="kw-tip">918 次。妳寫愛的方式不是浪漫文學式的，是行動式的——「用愛打動靈魂的一切」，愛是動詞。</div>
+    </div>
+    <div class="kw" style="font-size:1.15rem;">行銷
+      <div class="kw-tip">894 次，密度在近三年飆升至 26.4/萬字。不只是職業，是妳理解世界的方式——找到內在精神，透過合適的通道擴大。</div>
+    </div>
+    <div class="kw" style="font-size:1.1rem; color:var(--lavender);">選擇
+      <div class="kw-tip">826 次。妳是一個對「選擇」這件事有深度執念的人。不只做選擇，還要理解選擇背後的邏輯和代價。</div>
+    </div>
+    <div class="kw" style="font-size:1.1rem;">人生
+      <div class="kw-tip">823 次。妳不只是在過日子，妳在觀察自己怎麼過日子，然後寫下來。人生既是經歷也是素材。</div>
+    </div>
+    <div class="kw" style="font-size:1.05rem;">分享
+      <div class="kw-tip">991 次。妳的慷慨不只是物質的，更是知識和情感的。妳認為好東西就該被更多人看到。</div>
+    </div>
+    <div class="kw" style="font-size:0.95rem;">問題
+      <div class="kw-tip">972 次。妳提問的頻率非常穩定（~30/萬字），從不因為年紀增長而減少好奇。問號是妳思考的發動機。</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin:2.5rem 0 1rem; font-size:1.1rem; color:var(--text-dim);">標誌性系列</h3>
+  <div class="card-grid" style="margin-bottom:3rem;">
+    <div class="card">
+      <span class="tag tag-amber">#今日姝摘 × 146</span>
+      <h3>日常煉金術</h3>
+      <p>把每天讀到的、看到的、想到的萃取成一段分享。不是轉貼，是消化後的再創作。這是妳最持久的書寫習慣。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-lavender">#偶一為詩 × 87</span>
+      <h3>理性人的感性出口</h3>
+      <p>詩是妳在分析框架之外的自由呼吸。#致流浪者、#錯過——這些作品裡的妳，不需要邏輯嚴謹，只需要誠實。</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-teal">#生了一顆糖 × 65</span>
+      <h3>母職觀察筆記</h3>
+      <p>兒子的成長不是流水帳，是妳觀察人類發展的第一手田野筆記。從嬰兒到青少年，妳記錄的是一個小宇宙的膨脹。</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin-bottom:1rem; font-size:1.1rem; color:var(--text-dim);">書寫量年度分佈</h3>
+  <div class="bar-chart">
+    <div class="bar-col">
+      <div class="bar" style="height:0.7692307692307693%">
+        <div class="bar-tooltip">2009年：2篇</div>
+      </div>
+      <div class="bar-label">09</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:16.923076923076923%">
+        <div class="bar-tooltip">2010年：44篇</div>
+      </div>
+      <div class="bar-label">10</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:20.76923076923077%">
+        <div class="bar-tooltip">2011年：54篇</div>
+      </div>
+      <div class="bar-label">11</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:30.76923076923077%">
+        <div class="bar-tooltip">2012年：80篇</div>
+      </div>
+      <div class="bar-label">12</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:39.23076923076923%">
+        <div class="bar-tooltip">2013年：102篇</div>
+      </div>
+      <div class="bar-label">13</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:36.92307692307693%">
+        <div class="bar-tooltip">2014年：96篇</div>
+      </div>
+      <div class="bar-label">14</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:42.30769230769231%">
+        <div class="bar-tooltip">2015年：110篇</div>
+      </div>
+      <div class="bar-label">15</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:51.53846153846153%">
+        <div class="bar-tooltip">2016年：134篇</div>
+      </div>
+      <div class="bar-label">16</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:54.230769230769226%">
+        <div class="bar-tooltip">2017年：141篇</div>
+      </div>
+      <div class="bar-label">17</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:63.84615384615384%">
+        <div class="bar-tooltip">2018年：166篇</div>
+      </div>
+      <div class="bar-label">18</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:72.6923076923077%">
+        <div class="bar-tooltip">2019年：189篇</div>
+      </div>
+      <div class="bar-label">19</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:100.0%">
+        <div class="bar-tooltip">2020年：260篇</div>
+      </div>
+      <div class="bar-label">20</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:81.15384615384616%">
+        <div class="bar-tooltip">2021年：211篇</div>
+      </div>
+      <div class="bar-label">21</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:97.3076923076923%">
+        <div class="bar-tooltip">2022年：253篇</div>
+      </div>
+      <div class="bar-label">22</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:76.15384615384615%">
+        <div class="bar-tooltip">2023年：198篇</div>
+      </div>
+      <div class="bar-label">23</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:99.23076923076923%">
+        <div class="bar-tooltip">2024年：258篇</div>
+      </div>
+      <div class="bar-label">24</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:67.6923076923077%">
+        <div class="bar-tooltip">2025年：176篇</div>
+      </div>
+      <div class="bar-label">25</div>
+    </div>
+    <div class="bar-col">
+      <div class="bar" style="height:41.53846153846154%">
+        <div class="bar-tooltip">2026年：108篇</div>
+      </div>
+      <div class="bar-label">26</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin:2.5rem 0 1rem; font-size:1.1rem; color:var(--text-dim);">成長歷程時間軸</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2009–2012</div>
+      <div class="tl-text">萌芽期。短句為主，生活碎片和心情記錄。文字還在找自己的聲音。平均文長 178-368 字。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2013–2016</div>
+      <div class="tl-text">紮根期。進入親子天下，開始寫書展心得、教育書行銷。文長跳升至 500-618 字。「愛/關係」主題密度最高的時期（34.8/萬字），也是拼圖喵成立、開始投入動物福利的階段。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2017–2019</div>
+      <div class="tl-text">轉折期。親子天下教育書行銷全面開花，同時持續經營拼圖喵的公益行銷。長文比例突破 50%。五月天、香港反送中——開始在個人情感與社會議題之間找到書寫的交叉點。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020–2022</div>
+      <div class="tl-text">爆發期。書寫量最高峰（年均 241 篇），疫情期間反而筆力更盛。離開親子天下，加入獻策顧問展開多元型態工作。#夢想視務所 募資、瑩光教育協會合作，公益行銷全面成形。養貓人家品牌起步。文長突破千字大關。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023–2026</div>
+      <div class="tl-text">融合期。散冊出版、散時間、養貓人家、拼圖喵、瑩光教育協會——多重身份不再衝突而是共振。持續與藍偉瑩老師深度合作出版與課程開發。「書/閱讀」密度衝上 45.2/萬字新高。AI 與科技議題首次大量出現（5.3/萬字）。文章更長（均 1,248 字），但數量稍減——質重於量。</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif; margin:2.5rem 0 1.5rem; font-size:1.1rem; color:var(--text-dim);">口頭禪</h3>
+  <div class="catchphrase-grid">
+    <div class="catchphrase">「我覺得」</div>
+    <div class="catchphrase">「其實」</div>
+    <div class="catchphrase">「怎麼說呢」</div>
+    <div class="catchphrase">「認真的說」</div>
+    <div class="catchphrase">「哈哈哈哈」</div>
+    <div class="catchphrase">「不知道為什麼」</div>
+    <div class="catchphrase">「文長慎入」</div>
+    <div class="catchphrase">「說到這裡」</div>
+    <div class="catchphrase">「好啦」</div>
+    <div class="catchphrase">「先這樣」</div>
+    <div class="catchphrase">「真心不騙」</div>
+  </div>
+</section>
+
+<!-- ═══════ 6. METHODOLOGY ═══════ -->
+<section id="methodology" class="fade-in">
+  <div class="section-title"><span class="icon">⬢</span> 方法論框架</div>
+  <p class="section-desc">從長文中歸納妳反覆使用的思考模型——不是學來的，是活出來的。</p>
+
+  <div class="expand-card">
+    <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3>🔄 翻譯者框架：從「原文」到「受眾語言」</h3>
+      <span class="expand-arrow">▾</span>
+    </div>
+    <div class="expand-body"><div class="expand-content">
+      <p>妳做每一件事的起手式都是同一個動作：先理解「原文」是什麼（作者想說什麼、議題的核心是什麼、貓的需求是什麼），然後翻譯成目標受眾能接收的語言。</p>
+      <p>這不只用在行銷上。妳寫五月天的文章是把粉絲心情翻譯成可以被討論的社會現象；寫政治評論是把複雜的制度翻譯成沉沒成本這類人人懂的概念；寫親子教育是把學術理論翻譯成爸媽今晚就能用的方法。</p>
+      <div class="quote-box">「行銷需要整合所有資訊，萃取內容精華並找到可被市場買單的點來溝通。」</div>
+      <p><strong>運作步驟：</strong>深度理解原始內容 → 辨識核心精神 → 找到受眾的語言和痛點 → 用受眾聽得懂的方式重新說一次 → 驗證共鳴是否發生</p>
+    </div></div>
+  </div>
+
+  <div class="expand-card">
+    <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3>⚖️ 矛盾共存法：不急著選邊站</h3>
+      <span class="expand-arrow">▾</span>
+    </div>
+    <div class="expand-body"><div class="expand-content">
+      <p>妳處理矛盾的方式不是二選一，而是承認兩邊都是真的，然後找到一個能同時容納兩者的位置。</p>
+      <p>「理解現實是骨感的，但靈魂務必豐滿」——這不是妥協，是妳發現的第三條路：在骨感的現實裡找到豐滿靈魂的方法。</p>
+      <p>工作狂但寫詩、理性分析但感動落淚、追求完美但擁抱不確定——妳的每一對矛盾都不是待解決的問題，而是同時為真的事實。</p>
+      <div class="quote-box">「痛並快樂著」——妳的 hashtag，也是妳的人生哲學濃縮版。</div>
+    </div></div>
+  </div>
+
+  <div class="expand-card">
+    <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3>🌱 種子觀察法：耐心等它長出來</h3>
+      <span class="expand-arrow">▾</span>
+    </div>
+    <div class="expand-body"><div class="expand-content">
+      <p>妳對待專案的方式像農夫，不像工程師。妳不畫完整的藍圖再動工，而是先撒種子，觀察它往哪個方向長，再順著它的生長方向搭架子。</p>
+      <p>#夢想視務所 從一次閒聊開始，#偏心自己 從書名的靈光一閃開始，養貓事業從「內心就有一股自然升起的衝動」開始。每一個最終長成大樹的專案，起點都是一顆被妳敏銳察覺到的種子。</p>
+      <div class="quote-box">「不是掩耳盜鈴，即便進化的不夠快，我仍看見許多人都在自己的崗位上努力維持運作。」</div>
+    </div></div>
+  </div>
+
+  <div class="expand-card">
+    <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3>🪞 鏡像投射法：在別人身上認出自己</h3>
+      <span class="expand-arrow">▾</span>
+    </div>
+    <div class="expand-body"><div class="expand-content">
+      <p>妳寫別人的時候，其實也在寫自己。寫琦瑜的「放下控制、給予空間」，是妳也在學的功課；寫撲馬的「默默耕耘幾十年」，是妳對自己工作方式的投射；寫五月天的「回家了好嗎」，是妳對偶像也對自己的喊話。</p>
+      <p>這不是自戀，是妳理解世界的方式——透過與他人的共鳴來校準自己的位置。</p>
+      <div class="quote-box">「這跟我家隊友不就是一模一樣的一群傻子嗎。」——從視障協會看見了丈夫精神的延伸。</div>
+    </div></div>
+  </div>
+
+  <div class="expand-card">
+    <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3>📐 沉沒成本審計：定期檢查「為什麼還在做」</h3>
+      <span class="expand-arrow">▾</span>
+    </div>
+    <div class="expand-body"><div class="expand-content">
+      <p>妳在政治文中用沉沒成本分析選民行為，但這個工具妳也悄悄用在自己身上。每一次職涯轉換，都是一次沉沒成本審計——「我投入了這麼多，但如果繼續投入換不來想要的結果呢？」</p>
+      <p>嚮網科技數年、親子天下七年，妳不是待不住，是每隔一段時間就會重新評估：投入和產出之間的意義感比值，是否仍然合理？</p>
+      <div class="quote-box">「四年的時間難道不夠看清有沒有變好？」——表面在問選民，其實也是妳問自己每一段歷程的句型。</div>
+    </div></div>
+  </div>
+
+  <div class="expand-card">
+    <div class="expand-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3>🎯 精準共感法：先對焦心理需求</h3>
+      <span class="expand-arrow">▾</span>
+    </div>
+    <div class="expand-body"><div class="expand-content">
+      <p>「每一段文字都要問：這觸動了使用者哪個層次的心理需求？」這不只是妳寫文案的方法，是妳與人互動的底層作業系統。</p>
+      <p>妳在寫開發信時先分析對方的心理動機，在寫書評時先對焦讀者可能的情感缺口，在寫社會議題時先找到「與你與我都有關」的切入角度。共感不是天賦，是一套妳已經內化到自動執行的系統。</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ═══════ 7. STRENGTHS & LIMITS ═══════ -->
+<section id="strengths" class="fade-in">
+  <div class="section-title"><span class="icon">⟡</span> 優勢與限制</div>
+  <p class="section-desc">每一個優勢推到極端，都會變成限制。這不是缺點，是地形。</p>
+
+  <div class="sl-grid">
+    <div class="sl-col strength">
+      <h3>優勢</h3>
+      <div class="sl-item">
+        <h4>跨域模式辨識力</h4>
+        <p>妳能在出版、教育、公益、動物福利之間看到別人看不到的共同模式。把行銷比作策展，把養貓比作做社企，把寫詩比作做行銷——這種跨域類比能力是稀有的認知資產。</p>
+      </div>
+      <div class="sl-item">
+        <h4>情感翻譯力</h4>
+        <p>把複雜的議題變成人能共感的故事，把專業知識變成日常語言。2,265 次「感恩」和 2,448 次「幽默」的共存，說明妳能同時觸動情感和引發笑聲。</p>
+      </div>
+      <div class="sl-item">
+        <h4>長期關係經營力</h4>
+        <p>妳的人際關係跨越十幾年不斷裂。離開的每個職場都留下了可以回去的門。「朋友」1,273 次，每一次都帶著名字。這不是社交技巧，是真心的累積。</p>
+      </div>
+      <div class="sl-item">
+        <h4>自省與成長力</h4>
+        <p>17 年的書寫軌跡清楚顯示一條向上的曲線——文字更精準、思考更深刻、矛盾更能共存。妳不只在做事，妳在一邊做一邊觀察自己怎麼做，然後調整。</p>
+      </div>
+    </div>
+    <div class="sl-col limit">
+      <h3>限制</h3>
+      <div class="sl-item">
+        <h4>「好人稅」過重</h4>
+        <p>妳看見需要就去做的特質，讓妳扛了太多不必然是妳該扛的事。多線並行的代價是每一條線都可能被拉得太細。「工作即生活」也意味著沒有下班這件事。</p>
+      </div>
+      <div class="sl-item">
+        <h4>用思考迴避感受</h4>
+        <p>妳處理情緒的方式是把它變成文字——這很有效，但也可能跳過「單純待在情緒裡」的階段。寫下來 ≠ 感受完了。有時候不分析、不提煉、不轉化，只是哭，也是需要的。</p>
+      </div>
+      <div class="sl-item">
+        <h4>完美主義的暗面</h4>
+        <p>對錯字零容忍延伸到對自己零容忍。215 篇涉及自我批判。妳給別人的標準是「做到 80 分就很好了」，給自己的標準是「95 分還可以更好」。</p>
+      </div>
+      <div class="sl-item">
+        <h4>過度依賴產出建立價值感</h4>
+        <p>妳的自我認同幾乎完全繫在「我做了什麼」上。休息、發呆、什麼都不做——這些在妳的 2,582 篇貼文中幾乎不存在，除非附帶一句「充完電就要回去奮鬥了」。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 8. BLIND SPOTS ═══════ -->
+<section id="blindspots" class="fade-in">
+  <div class="section-title"><span class="icon">◌</span> 盲點分析</div>
+  <p class="section-desc">這一節不容易寫，也不容易讀。但妳問了「我自己沒有發現的狀況」，所以這裡試著誠實回答。</p>
+
+  <div class="blind-spot-card">
+    <h3>妳幾乎不書寫「休息」</h3>
+    <p>2,582 篇貼文裡，妳書寫了工作、書寫了育兒、書寫了社會議題、書寫了朋友聚會、書寫了貓。但「純粹的休息」——沒有目的、沒有收穫、沒有反思的停頓——幾乎不存在。偶爾出現的度假文，也會被妳寫成一篇有洞察的人生感悟。這暗示妳可能很難允許自己「只是存在」，而不是「正在創造某種價值」。</p>
+    <div class="bs-evidence">證據：情緒標記中「熱血/行動」2,164 次，遠超其他所有情緒類別。連感恩（2,265次）都跟行動綁在一起——感謝的對象幾乎都是「做了某事」的人。</div>
+  </div>
+
+  <div class="blind-spot-card">
+    <h3>妳的界線感在文字裡極高，在行動上可能不然</h3>
+    <p>168 篇觸及界線相關主題，但幾乎都是妳在「分析」別人該有的界線，或「理解」界線的重要性——很少是妳在宣告「我的界線是這裡」然後守住它。妳的文字裡有大量「沒關係，那我們就來做」的句型。這種「看到需求就上」的模式很美，但也可能是一種不自覺的界線模糊。</p>
+    <div class="bs-evidence">證據：「沒關係」「那我們就來做」「自己來做」的行動句型反覆出現在公益專案、書展活動、新品牌建立的敘事中。</div>
+  </div>
+
+  <div class="blind-spot-card">
+    <h3>妳把自己寫小了</h3>
+    <p>寫別人時，妳的筆力萬鈞——琦瑜「富有智慧」、撲馬「寶劍出鞘」、偉瑩老師「藍色翅膀」。寫到自己時，妳的慣用句型是「再來是我。但是沒有什麼好說」、「我不敢說自己已經體會」、「至少我個人是如此...的有點變態😆」。妳用自嘲來迴避自我肯定，用幽默來稀釋自己的成就。2,448 次幽默標記中，有一大部分是朝向自己的。</p>
+    <div class="bs-evidence">證據：2026/04 偏心自己文中，詳細描寫了作者、編輯、出版社老闆各數百字，寫到自己時只用了一句「再來是我。但是沒有什麼好說」。</div>
+  </div>
+
+  <div class="blind-spot-card">
+    <h3>妳可能還沒學會區分「被需要」和「被愛」</h3>
+    <p>妳的價值感來源高度集中在「有用」——能翻譯、能行銷、能策劃、能寫、能串聯、能解決問題。你的關係敘事裡，被記得的片段大多是妳「為別人做了什麼」或「別人教了妳什麼」。純粹的、不交換任何價值的、只因為「妳是妳」而存在的連結——在文字中偏少。這不代表妳的生活中沒有，但妳選擇書寫的內容裡，行動遠多於存在。</p>
+    <div class="bs-evidence">證據：自我描述全部是動詞（行銷、企劃、寫作、策展）。About Me 中連「我的期待」都是「成為一個創造意義的生命」——不是「活著」，是「創造意義」。</div>
+  </div>
+
+  <div class="blind-spot-card">
+    <h3>妳的情緒處理幾乎全是公開的</h3>
+    <p>FB 對妳來說不只是社交平台，更接近一個公開的情緒處理場。2,582 篇貼文裡包含深層的自我剖析、職涯掙扎、偶像幻滅、政治憤怒、親子焦慮——這些在很多人是私密日記的內容，妳選擇攤在朋友圈裡。這種「公開思考」讓妳獲得了回饋和連結，但也可能讓妳習慣了有觀眾的自省，而不確定沒有觀眾的時候，自省是否還能運作。</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:0.5rem; color:var(--text);">靈姝 — 靈魂全景分析 v2</p>
+  <p>資料來源：2,582 篇 Facebook 貼文 ｜ 2009–2026 ｜ 2,330,000+ 字元</p>
+  <p style="margin-top:0.3rem;">此分析基於公開貼文的文本模式，不是心理診斷。所有推論都可能因為貼文不等於全部的妳而存在偏差。</p>
+</footer>
+
+<script>
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Active nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+
+</body>
+</html>
